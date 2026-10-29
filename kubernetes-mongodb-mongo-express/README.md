@@ -106,7 +106,7 @@ MongoDB Deployment (1 Pod)
 
 ```text
 kubernetes/
-└── demo-deploying-application/
+└── kubernetes-mongodb-mongo-express/
     ├── mongo.yaml
     ├── mongo-secret.yaml
     ├── mongo-configmap.yaml
