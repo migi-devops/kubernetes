@@ -120,9 +120,6 @@ kubernetes/
     │   │   └── mongo-express-logs-and-tunnel.png
     │   └── troubleshooting/
     └── README.md
-```
-
-The `assets/` filenames are **suggested**: add your own screenshots using those names before enabling the image links below. Do not commit a Secret containing real credentials.
 
 ---
 
