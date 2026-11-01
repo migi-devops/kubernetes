@@ -106,7 +106,7 @@ MongoDB Deployment (1 Pod)
 
 ```text
 kubernetes/
-└── demo-deploying-application/
+└── kubernetes-mongodb-mongo-express/
     ├── mongo.yaml
     ├── mongo-secret.yaml
     ├── mongo-configmap.yaml
@@ -120,9 +120,6 @@ kubernetes/
     │   │   └── mongo-express-logs-and-tunnel.png
     │   └── troubleshooting/
     └── README.md
-```
-
-The `assets/` filenames are **suggested**: add your own screenshots using those names before enabling the image links below. Do not commit a Secret containing real credentials.
 
 ---
 
