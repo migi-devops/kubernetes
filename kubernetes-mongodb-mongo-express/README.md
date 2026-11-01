@@ -27,7 +27,7 @@ The MongoDB and Mongo Express application was successfully deployed to a local K
 
 Mongo Express provides a browser-based interface for viewing and managing MongoDB databases.
 
-![alt text](image.png)
+![Mongo Express Web Dashboard](assets/mongo-express-dashboard.png)
 
 *Figure 1: Mongo Express web interface running locally through the Minikube service tunnel.*
 
@@ -35,7 +35,7 @@ Mongo Express provides a browser-based interface for viewing and managing MongoD
 
 The following screenshot confirms that both application pods are running and their Kubernetes Services are configured.
 
-![alt text](image-1.png)
+![Kubernetes Deployment Verification](assets/kubernetes-deployment-verification.png)
 
 *Figure 2: Kubernetes pod readiness and service verification using kubectl.*
 
