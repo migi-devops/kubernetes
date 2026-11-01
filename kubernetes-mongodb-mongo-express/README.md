@@ -21,6 +21,24 @@ The project covers:
 
 **Scope:** This is a reproducible **local learning and portfolio deployment**, not a production-ready database platform. The current manifests do not configure persistent storage, resource limits, or health probes.
 
+## Application Demo
+
+The MongoDB and Mongo Express application was successfully deployed to a local Kubernetes cluster using Minikube.
+
+Mongo Express provides a browser-based interface for viewing and managing MongoDB databases.
+
+![alt text](image.png)
+
+*Figure 1: Mongo Express web interface running locally through the Minikube service tunnel.*
+
+## Deployment Verification
+
+The following screenshot confirms that both application pods are running and their Kubernetes Services are configured.
+
+![alt text](image-1.png)
+
+*Figure 2: Kubernetes pod readiness and service verification using kubectl.*
+
 ---
 
 #### 💼 Business Problem
@@ -352,26 +370,6 @@ kubectl get all
 ```
 
 **Engineering insight:** Targeted resource cleanup is safer than deleting an entire cluster. The observed `ImagePullBackOff` status was not necessary to resolve for this MongoDB demo.
-
-#### ❌ Challenge 3 — LoadBalancer external IP remained pending
-
-**Symptom:** `mongodb-express-service` showed `EXTERNAL-IP <pending>`.
-
-**Cause:** The local Minikube environment did not provision a cloud load balancer for this Service.
-
-**Resolution:** Used `minikube service mongodb-express-service` to create a local tunnel and open the web interface.
-
-**Engineering insight:** A Service's Kubernetes type and its externally reachable address depend on the cluster's networking implementation.
-
-#### ❌ Challenge 4 — Browser requested credentials
-
-**Symptom:** A browser authentication dialog appeared when opening Mongo Express.
-
-**Investigation:** `kubectl logs deployment/mongo-express` revealed the image's active HTTP Basic Auth credentials in the observed run.
-
-**Resolution:** Used the demo browser credentials to reach the dashboard and verify database connectivity.
-
-**Engineering insight:** Distinguish **Mongo Express browser authentication** from **MongoDB database authentication**. Default application credentials should be replaced before broader exposure.
 
 #### ⚠️ Configuration review — ConfigMap namespace mismatch
 
