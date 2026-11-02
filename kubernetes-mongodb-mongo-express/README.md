@@ -21,7 +21,7 @@ The project covers:
 
 **Scope:** This is a reproducible **local learning and portfolio deployment**, not a production-ready database platform. The current manifests do not configure persistent storage, resource limits, or health probes.
 
-## Application Demo
+#### Application Demo
 
 The MongoDB and Mongo Express application was successfully deployed to a local Kubernetes cluster using Minikube.
 
@@ -31,7 +31,7 @@ Mongo Express provides a browser-based interface for viewing and managing MongoD
 
 *Figure 1: Mongo Express web interface running locally through the Minikube service tunnel.*
 
-## Deployment Verification
+#### Deployment Verification
 
 The following screenshot confirms that both application pods are running and their Kubernetes Services are configured.
 
