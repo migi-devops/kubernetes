@@ -3,4 +3,4 @@ replicaCount: 3
 persistence:
   storageClass: "linode-block-storage"
 auth:
-  rootPassword: secret-root-pwd
+  rootPassword: "REPLACE_WITH_SECURE_PASSWORD"
