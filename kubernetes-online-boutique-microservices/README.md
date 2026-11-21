@@ -1,8 +1,8 @@
-#### Online Boutique Microservices on Linode Kubernetes Engine
+### Online Boutique Microservices on Linode Kubernetes Engine
 
 > **Project status:** Storefront reachable from three LKE worker-node IP addresses through Kubernetes NodePort `31791` (verified 20 November 2026). End-to-end checkout, service health, and Helm release state still require separate verification.
 
-### Project overview
+#### Project overview
 
 This project deploys **Online Boutique**, Google's sample microservices e-commerce application, to **Linode Kubernetes Engine (LKE)**. The deployment demonstrates how Kubernetes runs and connects independently deployed application components, and how a storefront can be exposed externally through a Kubernetes Service.
 
@@ -14,13 +14,13 @@ This project deploys **Online Boutique**, Google's sample microservices e-commer
 
 *Deployment evidence: the Online Boutique storefront loaded via a worker node's public IP and NodePort `31791`. Screenshot captured on 20 November 2026.*
 
-## Business problem and engineering value
+#### Business problem and engineering value
 
 An e-commerce application has distinct responsibilities: product discovery, cart management, checkout, payments, shipping, recommendations, and more. Packaging all responsibilities into one deployable unit can make independent updates and scaling difficult.
 
 This demonstration explores a microservices architecture in which each component runs as its own Kubernetes workload and communicates with other services over Kubernetes networking. It highlights the operational skills needed to deploy, connect, expose, and troubleshoot a multi-component application on managed cloud infrastructure.
 
-## Architecture
+#### Architecture
 
 ```mermaid
 flowchart TD
@@ -47,7 +47,7 @@ flowchart TD
 
 *Simplified logical diagram based on the provided Kubernetes manifest and application overview; it does not assert that every service is currently healthy.*
 
-### Application components
+#### Application components
 
 | Component | Purpose |
 | --- | --- |
@@ -64,7 +64,7 @@ flowchart TD
 | `adservice` | Advertising content |
 | `loadgenerator` | Synthetic customer traffic; present in the application overview, not established as deployed by the supplied manifest |
 
-## Technologies
+#### Technologies
 
 - **Cloud:** Linode Kubernetes Engine (LKE)
 - **Orchestration:** Kubernetes Deployments, Services, Pods, health probes, replica settings
@@ -74,7 +74,7 @@ flowchart TD
 - **Data:** Redis for shopping cart functionality
 - **Tooling:** `kubectl`, Windows PowerShell, VS Code, Git, GitHub
 
-## Repository layout
+#### Repository layout
 
 ```text
 kubernetes-online-boutique-microservices/
@@ -87,9 +87,9 @@ kubernetes-online-boutique-microservices/
 
 **Note:** `config.yaml` is a collection of Kubernetes resource manifests, **not** a Helm chart. `email-service-values.yaml` contains values that can be supplied to a compatible Helm chart; its presence alone does not prove that a Helm release has been installed.
 
-## Deployment and configuration
+#### Deployment and configuration
 
-### 1. Select the LKE cluster
+#### 1. Select the LKE cluster
 
 Keep the downloaded administrator kubeconfig **outside the Git repository** wherever possible. If it is stored locally in the project for development, exclude it from Git and restrict file permissions.
 
@@ -101,7 +101,7 @@ kubectl get nodes -o wide
 
 Expected context for this demo: `lke650941-ctx`. Do not publish kubeconfig content or authentication tokens.
 
-### 2. Inspect or apply the Kubernetes manifest
+#### 2. Inspect or apply the Kubernetes manifest
 
 From the project directory:
 
@@ -114,7 +114,7 @@ Only apply the manifest if you intend to create or reconcile these resources in 
 
 The supplied manifest defines multiple Deployments and Services. It uses Kubernetes DNS names such as `productcatalogservice:3550` and `redis-cart:6379` for service-to-service communication. The `frontend` Service in that supplied manifest is declared as `LoadBalancer`; the working NodePort `31791` shown in the browser is a **runtime observation**, so confirm the actual live Service type and allocated ports before treating the manifest as an exact snapshot of the cluster.
 
-### 3. Inspect Helm configuration
+#### 3. Inspect Helm configuration
 
 The supplied `email-service-values.yaml` specifies:
 
@@ -138,9 +138,9 @@ helm list -A
 
 A chart directory and the actual Helm install/upgrade command should be recorded when that part of the lesson is complete.
 
-## Verification and observed results
+#### Verification and observed results
 
-### Confirmed: storefront access from three worker nodes
+#### Confirmed: storefront access from three worker nodes
 
 On 20 November 2026, the storefront was successfully opened through the following worker-node addresses:
 
@@ -152,7 +152,7 @@ On 20 November 2026, the storefront was successfully opened through the followin
 
 These are **temporary learning/demo endpoints**, not stable production URLs. Node IPs and allocated NodePorts can change. The screenshot shows an HTTP connection without TLS.
 
-### Recommended checks before marking the project complete
+#### Recommended checks before marking the project complete
 
 ```powershell
 kubectl get nodes -o wide
@@ -172,7 +172,7 @@ kubectl logs <pod-name> --all-containers=true --previous
 
 Test the product catalogue, cart, currency selector, checkout, and order flow separately. A working home page does not by itself prove that all back-end dependencies are healthy.
 
-## Troubleshooting log
+#### Troubleshooting log
 
 | Observation | Engineering significance | Follow-up |
 | --- | --- | --- |
@@ -180,7 +180,7 @@ Test the product catalogue, cart, currency selector, checkout, and order flow se
 | `emailservice` previously reported `CrashLoopBackOff` in an earlier cluster inspection | A healthy storefront does not necessarily imply that checkout email delivery is working | Inspect current pod status, `describe`, and current/previous logs; document actual cause and resolution only after verification |
 | Browser reports **Not secure** for the HTTP endpoint | Traffic is not protected by HTTPS | Use an Ingress/load balancer and TLS for production-like exposure |
 
-## Security and operational considerations
+#### Security and operational considerations
 
 - **Never commit** kubeconfig files, tokens, credentials, or private keys. Add `**/*kubeconfig*.yaml` to the repository `.gitignore` and verify that Git is not tracking the file.
 - A previously shared administrator kubeconfig should be treated as exposed; arrange credential rotation through the cloud provider. Downloading a new file does not necessarily revoke the old token.
@@ -189,7 +189,7 @@ Test the product catalogue, cart, currency selector, checkout, and order flow se
 - Review worker-node, NodeBalancer, and storage charges in Linode Cloud Manager. **Keep the Online Boutique cluster while actively working on the demo**, and delete billable resources only after documentation and any required backups are complete.
 - The supplied Redis manifest uses `emptyDir`, which is ephemeral storage; do not treat it as durable production cart storage.
 
-## Next improvements
+#### Next improvements
 
 1. Capture `kubectl get pods`, `kubectl get svc`, and `helm list -A` evidence.
 2. Diagnose and resolve any remaining `emailservice` errors.
@@ -199,7 +199,7 @@ Test the product catalogue, cart, currency selector, checkout, and order flow se
 6. Add monitoring, logs, resource tuning, and repeatable deployment automation.
 7. Remove cloud resources when the demo is complete to avoid ongoing costs.
 
-## Learning outcomes
+#### Learning outcomes
 
 - Deploy and operate a multi-service application on a managed Kubernetes cluster.
 - Understand service discovery and communication between Kubernetes workloads.
